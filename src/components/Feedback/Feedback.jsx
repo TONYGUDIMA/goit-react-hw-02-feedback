@@ -2,11 +2,7 @@ import React from 'react';
 import css from './Feedback.module.css';
 
 class Feedback extends React.Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
+
   handleGood = () => {
     this.setState(prev => ({
       good: prev.good + 1,
@@ -23,8 +19,12 @@ class Feedback extends React.Component {
     }));
   };
   countTotal = () => {
-    let sum = this.state.good + this.state.neutral + this.state.bad;
+    const sum = this.state.good + this.state.neutral + this.state.bad;
     return sum;
+  };
+  countPositiveFeedbackPercentage = () => {
+    const total = this.countTotal();
+    return total ? Math.round((this.state.good / total) * 100) : 0;
   };
   render() {
     return (
@@ -54,6 +54,7 @@ class Feedback extends React.Component {
         <p>Neutral : {this.state.neutral}</p>
         <p>Bad : {this.state.bad}</p>
         <p>Total : {this.countTotal()}</p>
+        <p>Positive Feedback : {this.countPositiveFeedbackPercentage()}%</p>
       </div>
     );
   }
