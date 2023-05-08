@@ -34,9 +34,14 @@ export default class App extends Component {
   onLeaveFeedbackHandler = option => {
     switch (option) {
       case 'good':
-        
+        this.handleGood();
         break;
-    
+      case 'bad':
+        this.handleBad();
+        break;
+      case 'neutral':
+        this.handleNeutral();
+        break;
       default:
         break;
     }
@@ -52,15 +57,18 @@ export default class App extends Component {
         }}
       >
         <Section title="Please Leave Feedback">
-          <FeedbackOptions options={['good', 'neutral', 'bad']} />
+          <FeedbackOptions
+            options={['good', 'neutral', 'bad']}
+            onLeaveFeedbackHandler={this.onLeaveFeedbackHandler}
+          />
         </Section>
         <Section title="Statistics">
           <Statistics
             good={this.state.good}
             neutral={this.state.neutral}
             bad={this.state.bad}
-            total={0}
-            positivePercentage={0}
+            total={this.countTotal()}
+            positivePercentage={this.countPositiveFeedbackPercentage()}
           />
         </Section>
       </div>

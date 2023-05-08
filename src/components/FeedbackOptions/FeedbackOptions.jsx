@@ -5,7 +5,15 @@ export default class FeedbackOptions extends Component {
     return (
       <div>
         {this.props.options.map(el => {
-          return <button>{el}</button>;
+          return (
+            <button
+              onClick={this.props.onLeaveFeedbackHandler.bind(this, el)}
+              className={css.button}
+              key={el}
+            >
+              {el}
+            </button>
+          );
         })}
       </div>
     );
